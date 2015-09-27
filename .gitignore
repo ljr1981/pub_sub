@@ -5,6 +5,11 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+# Eiffel Generated
+EIFGENs
+exception_trace.log
+pub_sub.rc
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
