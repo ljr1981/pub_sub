@@ -16,7 +16,7 @@ feature -- Access
 	publishers: ARRAYED_LIST [PUBLISHER]
 			-- `publishers' utilized by Current {PUBLISHING_AGENT}.
 		attribute
-			create Result.make (0)
+			create Result.make (10)
 		end
 
 feature -- Basic Operations
