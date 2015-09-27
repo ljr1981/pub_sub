@@ -65,10 +65,19 @@ feature -- Basic Operations
 			end
 		end
 
-feature {NONE} -- Implementation
+feature {PUBLISHING_AGENT} -- Implementation
 
 	publish
 			-- The process used to `publish' the information of Current {PUBLISHER} to all `subscriptions'.
+		note
+			synopsis: "[
+				Direct descendants of Current {PUBLISHER} or a {PUBLISHING_AGENT} will have the
+				export rights to initiate a call to `publish', which sends the a reference to
+				`data' to each {SUBSCRIBER} with an agent in the `subscriptions' list. Thus, you
+				can either let a descendant by a type-of {PUBLISHER} or you can create a
+				{PUBLISHING_AGENT}, which has one or more {PUBLISHER} objects, which then have
+				the right to tell the {PUBLISHER} to `publish'.
+				]"
 		do
 			subscriptions.call ([data])
 		end
