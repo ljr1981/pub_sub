@@ -12,6 +12,7 @@
 				<exclude>/EIFGENs$</exclude>
 				<exclude>/CVS$</exclude>
 				<exclude>/.svn$</exclude>
+				<exclude>/.git$</exclude>
 				<exclude>tests</exclude>
 			</file_rule>
 		</cluster>
@@ -24,6 +25,7 @@
 			<exclude>/EIFGENs$</exclude>
 			<exclude>/CVS$</exclude>
 			<exclude>/.svn$</exclude>
+			<exclude>/.git$</exclude>
 			<include>tests</include>
 		</file_rule>
 		<option profile="true">
