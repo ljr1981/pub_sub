@@ -44,6 +44,15 @@ feature -- Test routines
 			l_publisher.set_data (still_other_data)
 			assert ("has_still_other_data_from_publisher", attached {like test_data} published_data as al_data implies
 															al_data.same_string (still_other_data))
+				-- Test `l_publisher' {PUBLISHER} getting l_subscriber through ...
+			create l_publisher
+			create l_subscriber
+			published_data := Void
+			l_subscriber.set_subscription_agent (agent handle_info)
+			l_publisher.add_subscribers (<<l_subscriber>>)
+			l_publisher.set_data (test_data)
+			assert ("has_publisher_test_data_2", attached {like test_data} published_data as al_data implies
+												al_data.same_string (test_data))
 		end
 
 feature {NONE} -- Implementation
