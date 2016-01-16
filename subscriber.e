@@ -1,7 +1,7 @@
 note
 	description: "Abstract notion of a {SUBSCRIBER}."
 	synopsis: "[
-		A {SUBSCRIBER} wants to know about changes to the `data' of a {PUBLISHER}
+		A {SUBSCRIBER} wants to know about changes to {PUBLISHER}.data
 		by way of adding its `subscription_agent' to the `subscriptions' of it
 		through the mechanism of a call to `subscribe_to', passing said {PUBLISHER}
 		and an optional agent.
@@ -38,8 +38,7 @@ feature -- Settings
 feature -- Basic Operations
 
 	subscribe_to (a_publisher: attached like publisher_type_anchor; a_agent: like subscription_agent)
-			-- Current {SUBSCRIBER} will `subscribe_to' `a_publisher', with optional `a_agent' or
-			--	use `subscription_agent' by default.
+			-- `subscribe_to' `a_publisher', with optional `a_agent' or default `subscription_agent'
 		require
 			has_agent: attached a_agent or else attached subscription_agent
 		do
@@ -61,10 +60,10 @@ feature -- Basic Operations
 feature {NONE} -- Type anchors
 
 	publisher_type_anchor: detachable PUBLISHER
-			-- Valid types of {PUBLISHER}s for Current {SUBSCRIBER}.
+			-- Valid `publisher_type_anchor' that {PUBLISHER}s for Current {SUBSCRIBER}.
 
 	data_type_anchor: detachable ANY
-			-- Valid types of data which Current {SUBSCRIBER} can consume from {PUBLISHER}.
+			-- Valid `data_type_anchor' that Current {SUBSCRIBER} can consume from {PUBLISHER}.
 
 invariant
 	publisher_type_anchor_void: not attached publisher_type_anchor

@@ -21,7 +21,7 @@ class
 feature -- Access
 
 	subscriptions: ACTION_SEQUENCE [TUPLE [like data]]
-			-- Subscriptions to Current {PUBLISHER}.
+			-- `subscriptions' to Current {PUBLISHER}.
 		attribute
 			create Result
 		end
@@ -35,7 +35,7 @@ feature -- Access
 feature -- Settings
 
 	set_data (a_data: like data)
-			-- Set `data' with `a_data'.
+			-- `set_data' with `a_data'.
 		do
 			data := a_data
 			publish
@@ -44,7 +44,7 @@ feature -- Settings
 feature -- Basic Operations
 
 	add_subscriber (a_subscriber: SUBSCRIBER)
-			-- Add the `subscription_agent' of `a_subscriber' to `subscriptions'.
+			-- `add_subscriber' `subscription_agent' of `a_subscriber' to `subscriptions'.
 		require
 			has_agent: attached a_subscriber.subscription_agent
 		do
@@ -54,7 +54,7 @@ feature -- Basic Operations
 		end
 
 	add_subscribers (a_subscribers: ARRAY [SUBSCRIBER])
-			-- Add `a_subscribers' to `subscriptions'.
+			-- `add_subscribers' as `a_subscribers' to `subscriptions'.
 		require
 			all_have_agents: across a_subscribers as ic_subs all attached ic_subs.item.subscription_agent end
 		do
@@ -68,7 +68,7 @@ feature -- Basic Operations
 feature {PUBLISHING_AGENT} -- Implementation
 
 	publish
-			-- The process used to `publish' the information of Current {PUBLISHER} to all `subscriptions'.
+			-- `publish' `data' to all `subscriptions' by calling thier `subscription_agent' items.
 		note
 			synopsis: "[
 				Direct descendants of Current {PUBLISHER} or a {PUBLISHING_AGENT} will have the
