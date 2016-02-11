@@ -35,25 +35,15 @@ feature {NONE} -- Implementation: Event Handlers
 	on_click
 			-- Process `on_click' of `widget', and publish with `set_data_and_publish'.
 		do
-			if last_message_sent.same_string (First_message) then
-				last_message_sent := Second_message
-			else
-				last_message_sent := First_message
-			end
-			set_data_and_publish (last_message_sent)
+			set_data_and_publish (randomizer.random_paragraph.to_string_32)
 		end
 
 feature {NONE} -- Implementation
 
-	last_message_sent: STRING_32
-			-- `last_message_sent' to Subscribers.
-		attribute
-			Result := Second_message
+	randomizer: RANDOMIZER
+			-- `randomizer' of Current.
+		once
+			create Result
 		end
-
-feature {NONE} -- Implementation: Constants
-
-	First_message: STRING_32 = "First message!"
-	Second_message: STRING_32 = "Second message!"
 
 end

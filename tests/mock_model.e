@@ -18,7 +18,7 @@ inherit
 
 	PS_PUBLISHER [detachable ANY]	-- Note (B) (above)
 
-feature {MODEL_CONTROLLER} -- Settings
+feature {PS_MODEL_CONTROLLER} -- Settings
 
 	set_message (a_message: like data)
 			-- `set_message' with `a_message' and then `set_data_and_publish'.

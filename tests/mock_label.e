@@ -32,7 +32,7 @@ feature {NONE} -- Initialization
 
 feature {EV_WIDGET} -- GUI
 
-	widget: EV_LABEL
+	widget: EV_TEXT
 
 feature {EV_WIDGET} -- Event Handlers
 

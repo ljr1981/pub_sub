@@ -30,7 +30,7 @@ inherit
 			initialize
 		end
 
-	MODEL_CONTROLLER
+	PS_MODEL_CONTROLLER
 		undefine
 			default_create,
 			copy
