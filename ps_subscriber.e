@@ -18,7 +18,7 @@ note
 		]"
 
 class
-	PS_SUBSCRIBER
+	PS_SUBSCRIBER [G -> detachable ANY]
 
 feature -- Access
 
@@ -59,10 +59,10 @@ feature -- Basic Operations
 
 feature {NONE} -- Type anchors
 
-	publisher_type_anchor: detachable PS_PUBLISHER
+	publisher_type_anchor: detachable PS_PUBLISHER [G]
 			-- Valid `publisher_type_anchor' that {PS_PUBLISHER}s for Current {PS_SUBSCRIBER}.
 
-	data_type_anchor: detachable ANY
+	data_type_anchor: detachable G
 			-- Valid `data_type_anchor' that Current {PS_SUBSCRIBER} can consume from {PS_PUBLISHER}.
 
 invariant

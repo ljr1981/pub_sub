@@ -7,6 +7,6 @@ class
 	PS_DISPATCH_PUBLISHER
 
 inherit
-	PS_PUBLISHER
-	
+	PS_PUBLISHER [detachable ANY]
+
 end

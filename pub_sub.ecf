@@ -20,7 +20,7 @@
 	</target>
 	<target name="test" extends="pub_sub">
 		<description>Pub sub test</description>
-		<root class="ANY" feature="default_create"/>
+		<root class="MOCK_APPLICATION" feature="make"/>
 		<file_rule>
 			<exclude>/.git$</exclude>
 			<exclude>/EIFGENs$</exclude>
@@ -30,8 +30,9 @@
 		</file_rule>
 		<option profile="true">
 		</option>
-		<setting name="console_application" value="true"/>
+		<setting name="console_application" value="false"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing-safe.ecf"/>
+		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2-safe.ecf"/>
 		<cluster name="tests" location=".\tests\" recursive="true"/>
 	</target>
 </system>

@@ -11,7 +11,7 @@ note
 		]"
 
 class
-	PS_BROKER
+	PS_BROKER [G -> detachable ANY]
 
 feature -- Access
 
@@ -56,10 +56,10 @@ feature -- Basic Operations
 
 feature -- Anchors
 
-	publisher_anchor: detachable PS_PUBLISHER
+	publisher_anchor: detachable PS_PUBLISHER [G]
 			-- `publisher_anchor' type.
 
-	subscriber_anchor: detachable PS_SUBSCRIBER
+	subscriber_anchor: detachable PS_SUBSCRIBER [G]
 			-- `subscriber_anchor' type.
 
 end

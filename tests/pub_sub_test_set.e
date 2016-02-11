@@ -29,8 +29,8 @@ feature -- Test routines
 				"covers/{PS_SUBSCRIBER}.set_subscription_agent"
 		local
 			l_publisher,
-			l_pub2: PS_PUBLISHER
-			l_subscriber: PS_SUBSCRIBER
+			l_pub2: PS_PUBLISHER [detachable ANY]
+			l_subscriber: PS_SUBSCRIBER [detachable ANY]
 		do
 				-- Test the passed `a_agent' argument on {PS_SUBSCRIBER}.
 			create l_publisher
@@ -96,18 +96,18 @@ feature {NONE} -- Implementation
 	test_publishing_agent_1: detachable PS_PUBLISHING_AGENT
 			-- Reference to bring "in-system".
 
-	test_publisher_1: PS_PUBLISHER
+	test_publisher_1: PS_PUBLISHER [detachable ANY]
 		do
 			create Result
 			Result.set_data (test_data)
 		end
 
-	test_subscriber_1: PS_SUBSCRIBER
+	test_subscriber_1: PS_SUBSCRIBER [detachable ANY]
 		do
 			create Result
 		end
 
-	test_broker_1: PS_BROKER
+	test_broker_1: PS_BROKER [detachable ANY]
 		do
 			create Result
 		end
@@ -116,10 +116,10 @@ feature {NONE} -- Implementation
 	other_data: STRING = "Other Data"
 	still_other_data: STRING = "Still Other Data"
 
-	published_data: like {PS_SUBSCRIBER}.data_type_anchor
+	published_data: like {PS_SUBSCRIBER [detachable ANY]}.data_type_anchor
 			-- Data coming from the {PS_PUBLISHER}.
 
-	handle_info (a_data: like {PS_SUBSCRIBER}.data_type_anchor)
+	handle_info (a_data: like {PS_SUBSCRIBER [detachable ANY]}.data_type_anchor)
 			-- A place for the {PS_PUBLISHER} to send their data.
 		do
 			published_data := a_data

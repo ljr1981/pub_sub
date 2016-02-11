@@ -16,7 +16,7 @@ note
 		]"
 
 class
-	PS_PUBLISHER
+	PS_PUBLISHER [G -> detachable ANY create default_create end]
 
 feature -- Access
 
@@ -26,7 +26,7 @@ feature -- Access
 			create Result
 		end
 
-	data: detachable ANY
+	data: detachable G
 			-- `data' to send in `publish' to subscribers held in `subscriptions' list.
 		attribute
 			create Result
@@ -48,7 +48,7 @@ feature -- Basic Operations
 		require
 			has_agent: attached a_subscriber.subscription_agent
 		do
-			check attached a_subscriber.subscription_agent as al_agent then
+			check attached {PROCEDURE [ANY, TUPLE [detachable G]]} a_subscriber.subscription_agent as al_agent then
 				subscriptions.extend (al_agent)
 			end
 		end
@@ -59,7 +59,7 @@ feature -- Basic Operations
 			all_have_agents: across a_subscribers as ic_subs all attached ic_subs.item.subscription_agent end
 		do
 			across a_subscribers as ic_subs loop
-				check attached ic_subs.item.subscription_agent as al_agent then
+				check attached {PROCEDURE [ANY, TUPLE [detachable G]]} ic_subs.item.subscription_agent as al_agent then
 					subscriptions.extend (al_agent)
 				end
 			end
@@ -67,7 +67,7 @@ feature -- Basic Operations
 
 feature -- Anchors
 
-	subscriber_anchor: detachable PS_SUBSCRIBER
+	subscriber_anchor: detachable PS_SUBSCRIBER [detachable ANY]
 			-- `subscriber_anchor' type.
 
 feature {PS_PUBLISHING_AGENT} -- Implementation
