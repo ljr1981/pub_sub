@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-14-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-14-0 http://www.eiffel.com/developers/xml/configuration-1-14-0.xsd" name="pub_sub" uuid="08C0424D-728F-4F6F-8C30-5BE714CC98FE">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="pub_sub" uuid="08C0424D-728F-4F6F-8C30-5BE714CC98FE" library_target="pub_sub">
+	<description>Publisher-Subscriber Library</description>
 	<target name="pub_sub">
 		<root class="ANY" feature="default_create"/>
-		<option warning="true" void_safety="transitional" syntax="provisional">
+		<option warning="true" is_obsolete_routine_type="true" void_safety="transitional" syntax="provisional">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<setting name="console_application" value="true"/>
@@ -10,10 +11,10 @@
 		<cluster name="pub_sub" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/EIFGENs$</exclude>
+				<exclude>tests</exclude>
 				<exclude>/CVS$</exclude>
 				<exclude>/.svn$</exclude>
 				<exclude>/.git$</exclude>
-				<exclude>tests</exclude>
 			</file_rule>
 		</cluster>
 	</target>
@@ -25,13 +26,11 @@
 			<exclude>/EIFGENs$</exclude>
 			<exclude>/CVS$</exclude>
 			<exclude>/.svn$</exclude>
-			<exclude>/.git$</exclude>
 			<include>tests</include>
 		</file_rule>
 		<option profile="true">
 		</option>
 		<setting name="console_application" value="true"/>
-		<library name="test_set_helper" location="C:\Users\Larry_2\Documents\GitHub\test_set_helper\test_set_helper.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing-safe.ecf"/>
 		<cluster name="tests" location=".\tests\" recursive="true"/>
 	</target>

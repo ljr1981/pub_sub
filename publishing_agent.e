@@ -13,7 +13,7 @@ deferred class
 
 feature -- Access
 
-	publishers: ARRAYED_LIST [PUBLISHER]
+	publishers: ARRAYED_LIST [PS_PUBLISHER]
 			-- `publishers' utilized by Current {PUBLISHING_AGENT}.
 		attribute
 			create Result.make (10)

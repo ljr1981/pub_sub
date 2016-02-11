@@ -16,7 +16,7 @@ note
 		]"
 
 class
-	PUBLISHER
+	PS_PUBLISHER
 
 feature -- Access
 
@@ -43,7 +43,7 @@ feature -- Settings
 
 feature -- Basic Operations
 
-	add_subscriber (a_subscriber: SUBSCRIBER)
+	add_subscriber (a_subscriber: PS_SUBSCRIBER)
 			-- `add_subscriber' `subscription_agent' of `a_subscriber' to `subscriptions'.
 		require
 			has_agent: attached a_subscriber.subscription_agent
@@ -53,7 +53,7 @@ feature -- Basic Operations
 			end
 		end
 
-	add_subscribers (a_subscribers: ARRAY [SUBSCRIBER])
+	add_subscribers (a_subscribers: ARRAY [PS_SUBSCRIBER])
 			-- `add_subscribers' as `a_subscribers' to `subscriptions'.
 		require
 			all_have_agents: across a_subscribers as ic_subs all attached ic_subs.item.subscription_agent end

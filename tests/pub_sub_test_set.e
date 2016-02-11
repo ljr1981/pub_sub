@@ -1,31 +1,45 @@
 note
+	description: "Tests of the PUB-SUB framework."
 	testing: "type/manual"
 
 class
 	PUB_SUB_TEST_SET
 
 inherit
-	TEST_SET_HELPER
+	EQA_TEST_SET
+		rename
+			assert as assert_old
+		end
+
+	EQA_COMMONLY_USED_ASSERTIONS
+		undefine
+			default_create
+		end
 
 feature -- Test routines
 
 	pub_sub_test
-			-- Testing of {PUBLISHER} and {SUBSCRIBER} interaction.
+			-- Testing of {PS_PUBLISHER} and {PS_SUBSCRIBER} interaction.
 		note
-			testing:  "execution/isolated"
+			testing:
+				"execution/isolated",
+				"covers/{PS_PUBLISHER}.set_data",
+				"covers/{PS_PUBLISHER}.add_subscribers",
+				"covers/{PS_SUBSCRIBER}.subscribe_to",
+				"covers/{PS_SUBSCRIBER}.set_subscription_agent"
 		local
 			l_publisher,
-			l_pub2: PUBLISHER
-			l_subscriber: SUBSCRIBER
+			l_pub2: PS_PUBLISHER
+			l_subscriber: PS_SUBSCRIBER
 		do
-				-- Test the passed `a_agent' argument on {SUBSCRIBER}.
+				-- Test the passed `a_agent' argument on {PS_SUBSCRIBER}.
 			create l_publisher
 			create l_subscriber
 			l_subscriber.subscribe_to (l_publisher, agent handle_info)
 			assert ("not_has_data", not attached published_data)
 			l_publisher.set_data (test_data)
 			assert ("has_test_data", attached {like test_data} published_data as al_data implies al_data.same_string (test_data))
-				-- Test the `subscription_agent' of {SUBSCRIBER}.
+				-- Test the `subscription_agent' of {PS_SUBSCRIBER}.
 			create l_publisher
 			create l_subscriber
 			l_subscriber.set_subscription_agent (agent handle_info)
@@ -35,7 +49,7 @@ feature -- Test routines
 			l_publisher.set_data (test_data)
 			assert ("has_publisher_test_data", attached {like test_data} published_data as al_data implies
 												al_data.same_string (test_data))
-				-- Test `l_pub2' {PUBLISHER}.
+				-- Test `l_pub2' {PS_PUBLISHER}.
 			create l_pub2
 			l_subscriber.subscribe_to (l_pub2, Void)
 			l_pub2.set_data (other_data)
@@ -44,7 +58,7 @@ feature -- Test routines
 			l_publisher.set_data (still_other_data)
 			assert ("has_still_other_data_from_publisher", attached {like test_data} published_data as al_data implies
 															al_data.same_string (still_other_data))
-				-- Test `l_publisher' {PUBLISHER} getting l_subscriber through ...
+				-- Test `l_publisher' {PS_PUBLISHER} getting l_subscriber through ...
 			create l_publisher
 			create l_subscriber
 			published_data := Void
@@ -55,17 +69,51 @@ feature -- Test routines
 												al_data.same_string (test_data))
 		end
 
+	broker_tests
+		note
+			testing:
+				"covers/{PS_BROKER}.add_publisher",
+				"covers/{PS_BROKER}.publishers",
+				"covers/{PS_BROKER}.subscribers",
+				"covers/{PS_BROKER}.add_subscriber",
+				"covers/{PS_PUBLISHER}.add_subscriber",
+				"covers/{PS_PUBLISHER}.subscriptions",
+				"covers/{PS_SUBSCRIBER}.set_subscription_agent",
+				"covers/{PS_SUBSCRIBER}.subscription_agent"
+		do
+			test_broker_1.add_publisher (test_publisher_1)
+			test_broker_1.add_subscriber (test_subscriber_1, agent handle_info)
+			assert ("has_published_data", attached {like test_data} published_data as al_data implies
+												al_data.same_string (test_data))
+		end
+
 feature {NONE} -- Implementation
+
+	test_publisher_1: PS_PUBLISHER
+		do
+			create Result
+			Result.set_data (test_data)
+		end
+
+	test_subscriber_1: PS_SUBSCRIBER
+		do
+			create Result
+		end
+
+	test_broker_1: PS_BROKER
+		do
+			create Result
+		end
 
 	test_data: STRING = "My Data"
 	other_data: STRING = "Other Data"
 	still_other_data: STRING = "Still Other Data"
 
-	published_data: like {SUBSCRIBER}.data_type_anchor
-			-- Data coming from the {PUBLISHER}.
+	published_data: like {PS_SUBSCRIBER}.data_type_anchor
+			-- Data coming from the {PS_PUBLISHER}.
 
-	handle_info (a_data: like {SUBSCRIBER}.data_type_anchor)
-			-- A place for the {PUBLISHER} to send their data.
+	handle_info (a_data: like {PS_SUBSCRIBER}.data_type_anchor)
+			-- A place for the {PS_PUBLISHER} to send their data.
 		do
 			published_data := a_data
 		ensure

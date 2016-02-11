@@ -1,7 +1,7 @@
 note
-	description: "Abstract notion of a {SUBSCRIBER}."
+	description: "Abstract notion of a {PS_SUBSCRIBER}."
 	synopsis: "[
-		A {SUBSCRIBER} wants to know about changes to {PUBLISHER}.data
+		A {PS_SUBSCRIBER} wants to know about changes to {PUBLISHER}.data
 		by way of adding its `subscription_agent' to the `subscriptions' of it
 		through the mechanism of a call to `subscribe_to', passing said {PUBLISHER}
 		and an optional agent.
@@ -13,12 +13,12 @@ note
 		`subscribe_to' will override any existing `subscription_agent' already set on
 		the {SUBSCRIBER} (e.g. it will be ignored in favor of the argument agent).
 		
-		One may also subscribe the Current {SUBSCRIBER} to `a_publishers' list in
+		One may also subscribe the Current {PS_SUBSCRIBER} to `a_publishers' list in
 		`subscribe_all'.
 		]"
 
 class
-	SUBSCRIBER
+	PS_SUBSCRIBER
 
 feature -- Access
 
@@ -59,7 +59,7 @@ feature -- Basic Operations
 
 feature {NONE} -- Type anchors
 
-	publisher_type_anchor: detachable PUBLISHER
+	publisher_type_anchor: detachable PS_PUBLISHER
 			-- Valid `publisher_type_anchor' that {PUBLISHER}s for Current {SUBSCRIBER}.
 
 	data_type_anchor: detachable ANY
