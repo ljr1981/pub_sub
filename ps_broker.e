@@ -1,12 +1,12 @@
 note
 	description: "Representation of a Broker between Publishers and Subscribers."
 	synopsis: "[
-		The purpose of a "Broker" is to facilitate that an added {PUBLISHER} will
-		automatically get subscriptions from all known {SUBSCRIBER}s. Likewise,
-		adding a {SUBSCRIBER} will place subscriptions on all known {PUBLISHER}s.
+		The purpose of a "Broker" is to facilitate that an added {PS_PUBLISHER} will
+		automatically get subscriptions from all known {PS_SUBSCRIBER}s. Likewise,
+		adding a {PS_SUBSCRIBER} will place subscriptions on all known {PUBLISHER}s.
 		
 		The additional purpose of this class is to further remove direct knowledge
-		of {PUBLISHER} and {SUBSCRIBER} from each other. Third party brokers can
+		of {PS_PUBLISHER} and {PS_SUBSCRIBER} from each other. Third party brokers can
 		be imployed for purposes beyond direct knowledge of their related pubs/subs.
 		]"
 

@@ -1,7 +1,7 @@
 note
 	description: "Abstract notion of a {PS_SUBSCRIBER}."
 	synopsis: "[
-		A {PS_SUBSCRIBER} wants to know about changes to {PUBLISHER}.data
+		A {PS_SUBSCRIBER} wants to know about changes to {PS_PUBLISHER}.data
 		by way of adding its `subscription_agent' to the `subscriptions' of it
 		through the mechanism of a call to `subscribe_to', passing said {PUBLISHER}
 		and an optional agent.
@@ -11,7 +11,7 @@ note
 		either by pre-setting it on `subscription_agent' or by passing in the optional
 		`a_agent' argument (e.g. not Void). Moreover, a non-Void `a_agent' passed to
 		`subscribe_to' will override any existing `subscription_agent' already set on
-		the {SUBSCRIBER} (e.g. it will be ignored in favor of the argument agent).
+		the {PS_SUBSCRIBER} (e.g. it will be ignored in favor of the argument agent).
 		
 		One may also subscribe the Current {PS_SUBSCRIBER} to `a_publishers' list in
 		`subscribe_all'.
