@@ -89,6 +89,10 @@ feature -- Test routines
 
 feature {NONE} -- Implementation
 
+	test_dispatcher_1: detachable PS_DISPATCH_PUBLISHER
+
+	test_dispatch_receiver_1: detachable PS_DISPATCH_SUBSCRIBER
+
 	test_publishing_agent_1: detachable PS_PUBLISHING_AGENT
 			-- Reference to bring "in-system".
 
