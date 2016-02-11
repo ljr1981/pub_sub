@@ -89,6 +89,9 @@ feature -- Test routines
 
 feature {NONE} -- Implementation
 
+	test_publishing_agent_1: detachable PS_PUBLISHING_AGENT
+			-- Reference to bring "in-system".
+
 	test_publisher_1: PS_PUBLISHER
 		do
 			create Result
