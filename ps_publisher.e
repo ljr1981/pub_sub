@@ -3,7 +3,7 @@ note
 	synopsis: "[
 		A {PS_PUBLISHER} (like Current) has one or more {SUBSCRIBER}s who "subscribe"
 		by way of adding themselves to the list of `subscriptions' (agents). Once
-		on this list, any change to the `data' through `set_data' will trigger a
+		on this list, any change to the `data' through `set_data_and_publish' will trigger a
 		call to all `subscriptions' (agents) through a call to `publish'.
 		
 		See {PS_SUBSCRIBER} for more information about the subscription process as
@@ -34,8 +34,8 @@ feature -- Access
 
 feature -- Settings
 
-	set_data (a_data: like data)
-			-- `set_data' with `a_data'.
+	set_data_and_publish (a_data: like data)
+			-- `set_data_and_publish' with `a_data'.
 		do
 			data := a_data
 			publish

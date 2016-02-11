@@ -1,6 +1,6 @@
 note
 	description: "[
-		Mock Label.
+		Mock Label as update-enabled {PS_SUBSCRIBER}.
 		]"
 
 class
@@ -10,8 +10,12 @@ inherit
 	MOCK_WIDGET
 		redefine
 			default_create,
-			widget,
-			set_data
+			widget
+		end
+
+	PS_SUBSCRIBER [detachable ANY]
+		undefine
+			default_create
 		end
 
 create
@@ -22,21 +26,20 @@ feature {NONE} -- Initialization
 	default_create
 			-- <Precursor>
 		do
+			create widget
 			set_subscription_agent (agent widget.set_text)
 		end
 
-feature -- Access
+feature {EV_WIDGET} -- GUI
 
 	widget: EV_LABEL
-		attribute
-			create Result
-		end
 
-feature -- Basic Operations
+feature {EV_WIDGET} -- Event Handlers
 
-	set_data (a_data: like data)
+	set_data (a_data: detachable ANY)
+			-- <Precursor>
 		do
-			check attached {like widget.text} a_data as al_data  then
+			check like_widget_text: attached {like widget.text} a_data as al_data  then
 				widget.set_text (al_data)
 			end
 		end

@@ -37,7 +37,7 @@ feature -- Test routines
 			create l_subscriber
 			l_subscriber.subscribe_to (l_publisher, agent handle_info)
 			assert ("not_has_data", not attached published_data)
-			l_publisher.set_data (test_data)
+			l_publisher.set_data_and_publish (test_data)
 			assert ("has_test_data", attached {like test_data} published_data as al_data implies al_data.same_string (test_data))
 				-- Test the `subscription_agent' of {PS_SUBSCRIBER}.
 			create l_publisher
@@ -46,16 +46,16 @@ feature -- Test routines
 			l_subscriber.subscribe_to (l_publisher, Void)
 			published_data := Void
 			assert ("not_has_data", not attached published_data)
-			l_publisher.set_data (test_data)
+			l_publisher.set_data_and_publish (test_data)
 			assert ("has_publisher_test_data", attached {like test_data} published_data as al_data implies
 												al_data.same_string (test_data))
 				-- Test `l_pub2' {PS_PUBLISHER}.
 			create l_pub2
 			l_subscriber.subscribe_to (l_pub2, Void)
-			l_pub2.set_data (other_data)
+			l_pub2.set_data_and_publish (other_data)
 			assert ("has_other_data_from_pub2", attached {like test_data} published_data as al_data implies
 													al_data.same_string (other_data))
-			l_publisher.set_data (still_other_data)
+			l_publisher.set_data_and_publish (still_other_data)
 			assert ("has_still_other_data_from_publisher", attached {like test_data} published_data as al_data implies
 															al_data.same_string (still_other_data))
 				-- Test `l_publisher' {PS_PUBLISHER} getting l_subscriber through ...
@@ -64,7 +64,7 @@ feature -- Test routines
 			published_data := Void
 			l_subscriber.set_subscription_agent (agent handle_info)
 			l_publisher.add_subscribers (<<l_subscriber>>)
-			l_publisher.set_data (test_data)
+			l_publisher.set_data_and_publish (test_data)
 			assert ("has_publisher_test_data_2", attached {like test_data} published_data as al_data implies
 												al_data.same_string (test_data))
 		end
@@ -99,7 +99,7 @@ feature {NONE} -- Implementation
 	test_publisher_1: PS_PUBLISHER [detachable ANY]
 		do
 			create Result
-			Result.set_data (test_data)
+			Result.set_data_and_publish (test_data)
 		end
 
 	test_subscriber_1: PS_SUBSCRIBER [detachable ANY]

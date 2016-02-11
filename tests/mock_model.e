@@ -11,17 +11,19 @@ inherit
 
 	PS_PUBLISHER [detachable ANY]
 
-feature -- Acess
-
-	message: detachable STRING_32
-			-- `message'.
+feature {MODEL_CONTROLLER} -- Settings
 
 	set_message (a_message: like data)
 		do
-			if attached {like message} a_message as al_message then
+			check like_message: attached {like message} a_message as al_message then
 				message := al_message
-				set_data (al_message)
+				set_data_and_publish (al_message)
 			end
 		end
+
+feature {NONE} -- Implementation
+
+	message: detachable STRING_32
+			-- `message'.
 
 end
