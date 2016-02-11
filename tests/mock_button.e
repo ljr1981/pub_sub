@@ -20,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make_with_text (a_text: like widget.text)
-			-- `make'
+			-- `make_with_text' `a_text'.
 		do
 			create widget.make_with_text (a_text)
 			widget.select_actions.extend (agent on_click)
