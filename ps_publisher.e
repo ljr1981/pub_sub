@@ -21,7 +21,7 @@ class
 feature -- Access
 
 	subscriptions: ACTION_SEQUENCE [TUPLE [like data]]
-			-- `subscriptions' to Current {PUBLISHER}.
+			-- `subscriptions' to Current {PS_PUBLISHER}.
 		attribute
 			create Result
 		end
@@ -43,7 +43,7 @@ feature -- Settings
 
 feature -- Basic Operations
 
-	add_subscriber (a_subscriber: PS_SUBSCRIBER)
+	add_subscriber (a_subscriber: attached like subscriber_anchor)
 			-- `add_subscriber' `subscription_agent' of `a_subscriber' to `subscriptions'.
 		require
 			has_agent: attached a_subscriber.subscription_agent
@@ -53,7 +53,7 @@ feature -- Basic Operations
 			end
 		end
 
-	add_subscribers (a_subscribers: ARRAY [PS_SUBSCRIBER])
+	add_subscribers (a_subscribers: ARRAY [attached like subscriber_anchor])
 			-- `add_subscribers' as `a_subscribers' to `subscriptions'.
 		require
 			all_have_agents: across a_subscribers as ic_subs all attached ic_subs.item.subscription_agent end
@@ -65,17 +65,22 @@ feature -- Basic Operations
 			end
 		end
 
+feature -- Anchors
+
+	subscriber_anchor: detachable PS_SUBSCRIBER
+			-- `subscriber_anchor' type.
+
 feature {PS_PUBLISHING_AGENT} -- Implementation
 
 	publish
 			-- `publish' `data' to all `subscriptions' by calling thier `subscription_agent' items.
 		note
 			synopsis: "[
-				Direct descendants of Current {PUBLISHER} or a {PS_PUBLISHING_AGENT} will have the
+				Direct descendants of Current {PS_PUBLISHER} or a {PS_PUBLISHING_AGENT} will have the
 				export rights to initiate a call to `publish', which sends the a reference to
-				`data' to each {SUBSCRIBER} with an agent in the `subscriptions' list. Thus, you
+				`data' to each {PS_SUBSCRIBER} with an agent in the `subscriptions' list. Thus, you
 				can either let a descendant by a type-of {PUBLISHER} or you can create a
-				{PS_PUBLISHING_AGENT}, which has one or more {PUBLISHER} objects, which then have
+				{PS_PUBLISHING_AGENT}, which has one or more {PS_PUBLISHER} objects, which then have
 				the right to tell the {PUBLISHER} to `publish'.
 				]"
 		do

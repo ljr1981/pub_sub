@@ -18,14 +18,18 @@ feature -- Access
 	publishers: ARRAYED_LIST [attached like publisher_anchor]
 			-- `publishers' of Current {PS_BROKER}.
 		attribute
-			create Result.make (10)
+			create Result.make (default_publisher_capacity)
 		end
+
+	default_publisher_capacity: INTEGER = 10
 
 	subscribers: ARRAYED_LIST [attached like subscriber_anchor]
 			-- `subscribers' of Current {PS_BROKER}.
 		attribute
-			create Result.make (10)
+			create Result.make (default_subscriber_capacity)
 		end
+
+	default_subscriber_capacity: INTEGER = 10
 
 feature -- Basic Operations
 

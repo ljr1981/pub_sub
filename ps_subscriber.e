@@ -23,7 +23,7 @@ class
 feature -- Access
 
 	subscription_agent: detachable PROCEDURE [ANY, TUPLE [like data_type_anchor]]
-			-- Optional `subscription_agent' used in `subscribe_to' of Current {SUBSCRIBER}.
+			-- Optional `subscription_agent' used in `subscribe_to' of Current {PS_SUBSCRIBER}.
 
 feature -- Settings
 
@@ -60,10 +60,10 @@ feature -- Basic Operations
 feature {NONE} -- Type anchors
 
 	publisher_type_anchor: detachable PS_PUBLISHER
-			-- Valid `publisher_type_anchor' that {PUBLISHER}s for Current {SUBSCRIBER}.
+			-- Valid `publisher_type_anchor' that {PS_PUBLISHER}s for Current {PS_SUBSCRIBER}.
 
 	data_type_anchor: detachable ANY
-			-- Valid `data_type_anchor' that Current {SUBSCRIBER} can consume from {PUBLISHER}.
+			-- Valid `data_type_anchor' that Current {PS_SUBSCRIBER} can consume from {PS_PUBLISHER}.
 
 invariant
 	publisher_type_anchor_void: not attached publisher_type_anchor
