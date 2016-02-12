@@ -85,9 +85,22 @@ feature -- Test routines
 			test_broker_1.add_subscriber (test_subscriber_1, agent handle_info)
 			assert ("has_published_data", attached {like test_data} published_data as al_data implies
 												al_data.same_string (test_data))
+
+			broker.add_publisher (button_publisher)
+			broker.add_subscriber (model_publisher_subscriber, agent model_publisher_subscriber.set_data_from_broker)
+			broker.add_publisher (model_publisher_subscriber)
+			broker.add_subscriber (label_subscriber, agent label_subscriber.set_data)
 		end
 
 feature {NONE} -- Implementation
+
+	broker: PS_BROKER [detachable ANY] do create Result end
+
+	button_publisher: MOCK_BUTTON do create Result.make_with_text ("Test") end
+
+	model_publisher_subscriber: MOCK_MODEL do create Result end
+
+	label_subscriber: MOCK_LABEL do create Result end
 
 	test_dispatcher_1: detachable PS_DISPATCH_PUBLISHER
 

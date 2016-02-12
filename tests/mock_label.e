@@ -34,7 +34,7 @@ feature {EV_WIDGET} -- GUI
 
 	widget: EV_TEXT
 
-feature {EV_WIDGET} -- Event Handlers
+feature {EQA_TEST_SET, EV_WIDGET} -- Event Handlers
 
 	set_data (a_data: detachable ANY)
 			-- <Precursor>

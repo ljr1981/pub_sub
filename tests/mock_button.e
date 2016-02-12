@@ -1,6 +1,6 @@
 note
 	description: "[
-		Mock Button as View-trigger
+		Mock Button as View-trigger using the Client model.
 		]"
 
 class
@@ -15,7 +15,8 @@ inherit
 	PS_PUBLISHER [detachable ANY]
 
 create
-	make_with_text
+	make_with_text,
+	make_with_text_and_action
 
 feature {NONE} -- Initialization
 
@@ -23,6 +24,13 @@ feature {NONE} -- Initialization
 			-- `make_with_text' `a_text'.
 		do
 			create widget.make_with_text (a_text)
+			widget.select_actions.extend (agent on_click)
+		end
+
+	make_with_text_and_action (a_text: READABLE_STRING_GENERAL; an_action: PROCEDURE)
+			-- <Precursor>
+		do
+			create widget.make_with_text_and_action (a_text, an_action)
 			widget.select_actions.extend (agent on_click)
 		end
 

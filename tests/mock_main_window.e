@@ -36,6 +36,12 @@ inherit
 			copy
 		end
 
+	PS_BROKER [detachable ANY]
+		undefine
+			default_create,
+			copy
+		end
+
 create
 	make_with_title
 
@@ -62,8 +68,14 @@ feature {NONE} -- Initialization
 			set_minimum_size (800, 600)
 
 				-- MVC Setup ...
-			model.subscribe_to (button, agent model.set_message)
-			label.subscribe_to (model, agent label.set_data)
+--			model.subscribe_to (button, agent model.set_message)
+--			label.subscribe_to (model, agent label.set_data)
+
+				-- MVC through brokerage of Current ...
+			add_publisher (button)
+			add_subscriber (model, agent model.set_data_from_broker)
+			add_publisher (model)
+			add_subscriber (label, agent label.set_data)
 
 			Precursor
 		end
