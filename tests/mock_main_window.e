@@ -71,7 +71,7 @@ feature {NONE} -- Initialization
 --			model.subscribe_to (button, agent model.set_message)
 --			label.subscribe_to (model, agent label.set_data)
 
-				-- MVC through brokerage of Current ...
+				-- MVC with Current as {PS_BROKER} ...
 			add_publisher (button)
 			add_subscriber (model, agent model.set_data_from_broker)
 			add_publisher (model)
