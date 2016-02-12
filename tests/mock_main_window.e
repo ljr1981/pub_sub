@@ -5,9 +5,9 @@
 	synopsis: "[
 		Use the Pub-Sub library to implement MVC.
 		
-		button: MOCK_BUTTON (Publisher to model)
-		model: MOCK_MODEL (Subscriber of button, Publisher to label)
-		label: MOCK_LABEL (Subscriber of model)
+		button: MOCK_BUTTON 	(Publisher to model)
+		model: 	MOCK_MODEL 		(Subscriber of button, Publisher to label)
+		label: 	MOCK_LABEL 		(Subscriber of model)
 
 		View -> 	Controller -> 	Model -> 	...
 		[Click]		[Calls]			[Updates]	...
