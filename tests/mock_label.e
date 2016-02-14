@@ -36,6 +36,21 @@ feature {EV_WIDGET} -- GUI
 
 feature {EQA_TEST_SET, EV_WIDGET} -- Event Handlers
 
+	on_click_signal (a_data: detachable ANY)
+			-- `on_click_signal' is Void.
+		do
+			check no_data: not attached a_data end
+			widget.set_text (Explanation)
+		end
+
+	Explanation: STRING = "[
+Model broker button was clicked!
+
+This data is being generated at the label level. We can send along and pass along data from
+any source, we have chosen to respond to `a_data' in `on_click_signal' as just that--a signal.
+No data is passed other than Void. We check for that in the routine (see `on_click_signal').
+]"
+
 	set_data (a_data: detachable ANY)
 			-- <Precursor>
 		do

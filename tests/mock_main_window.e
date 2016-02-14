@@ -25,6 +25,8 @@ class
 
 inherit
 	EV_TITLED_WINDOW
+		rename
+			data as unused_data
 		redefine
 			create_interface_objects,
 			initialize
@@ -52,7 +54,9 @@ feature {NONE} -- Initialization
 		do
 			create model
 			create main_box
-			create button.make_with_text ("Press me!")
+			create button.make_with_text ("Direct PUB-SUB MVC")
+			create broker_button.make_with_text ("Window Brokered PUB-SUB MVC")
+			create model_broker.make_with_text ("Model Brokered PUB-SUB MVC")
 			create label
 
 			Precursor
@@ -60,22 +64,31 @@ feature {NONE} -- Initialization
 
 	initialize
 			-- <Precursor>
+		local
+			l_hbox: EV_HORIZONTAL_BOX
 		do
 				-- GUI Initialization/Setup ...
 			main_box.extend (label.widget)
-			main_box.extend (button.widget)
+			create l_hbox
+			l_hbox.extend (button.widget)
+			l_hbox.extend (broker_button.widget)
+			l_hbox.extend (model_broker.widget)
+			main_box.extend (l_hbox)
+			main_box.disable_item_expand (l_hbox)
+			main_box.set_padding (3)
+			main_box.set_border_width (3)
 			extend (main_box)
 			set_minimum_size (800, 600)
 
-				-- MVC Setup ...
---			model.subscribe_to (button, agent model.set_message)
---			label.subscribe_to (model, agent label.set_data)
+				-- PUB-SUB MVC with direct `button' to `model' and `model' to `label' ...
+			model.subscribe_to (button, agent model.on_direct_publish)
+			label.subscribe_to (model, agent label.set_data)
 
-				-- MVC with Current as {PS_BROKER} ...
-			add_publisher (button)
-			add_subscriber (model, agent model.set_data_from_broker)
-			add_publisher (model)
-			add_subscriber (label, agent label.set_data)
+				-- PUB-SUB MVC with `Current' as {PS_BROKER} ...
+			add_brokered_with_middleman (broker_button, model, agent model.on_direct_publish, label, agent label.set_data)
+
+				-- PUB-SUB MVC with `model' as {PS_BROKER} ...
+			model.add_brokered_subscription (model_broker, label, agent label.on_click_signal)
 
 			Precursor
 		end
@@ -85,7 +98,9 @@ feature {NONE} -- GUI Objects
 	main_box: EV_VERTICAL_BOX
 			-- A `main_box' to put `button' and `label' in.
 
-	button: MOCK_BUTTON
+	button,
+	broker_button,
+	model_broker: MOCK_BUTTON
 			-- `button' as first step View-controller triggering {PS_PUBLISHER}.
 
 	model: MOCK_MODEL

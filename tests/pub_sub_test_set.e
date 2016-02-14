@@ -81,15 +81,15 @@ feature -- Test routines
 				"covers/{PS_SUBSCRIBER}.set_subscription_agent",
 				"covers/{PS_SUBSCRIBER}.subscription_agent"
 		do
-			test_broker_1.add_publisher (test_publisher_1)
-			test_broker_1.add_subscriber (test_subscriber_1, agent handle_info)
-			assert ("has_published_data", attached {like test_data} published_data as al_data implies
-												al_data.same_string (test_data))
+--			test_broker_1.add_publisher (test_publisher_1)
+--			test_broker_1.add_subscriber (test_subscriber_1, agent handle_info)
+--			assert ("has_published_data", attached {like test_data} published_data as al_data implies
+--												al_data.same_string (test_data))
 
-			broker.add_publisher (button_publisher)
-			broker.add_subscriber (model_publisher_subscriber, agent model_publisher_subscriber.set_data_from_broker)
-			broker.add_publisher (model_publisher_subscriber)
-			broker.add_subscriber (label_subscriber, agent label_subscriber.set_data)
+--			broker.add_publisher (button_publisher)
+--			broker.add_subscriber (model_publisher_subscriber, agent model_publisher_subscriber.on_brokered_publish)
+--			broker.add_publisher (model_publisher_subscriber)
+--			broker.add_subscriber (label_subscriber, agent label_subscriber.set_data)
 		end
 
 feature {NONE} -- Implementation

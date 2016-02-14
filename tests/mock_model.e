@@ -14,43 +14,43 @@ class
 	MOCK_MODEL
 
 inherit
-	PS_SUBSCRIBER [detachable ANY]  -- Note (A) (above)
-
-	PS_PUBLISHER [detachable ANY]	-- Note (B) (above)
-		rename
-			set_data_and_publish as set_data_from_broker
-		redefine
-			set_data_from_broker
-		end
+	PS_BROKER [detachable ANY]
 
 feature {EQA_TEST_SET, PS_MODEL_CONTROLLER} -- Settings
 
-	set_message (a_message: like data)
-			-- `set_message' with `a_message' and then `set_data_and_publish'.
-			-- Make this call when not using a {PS_BROKER}.
+	on_direct_publish (a_data: like data)
+			-- What happens `on_direct_publish'.
 		do
-			check like_message: attached {like message} a_message as al_message then
-				message := al_message
-				set_data_from_broker (al_message)
-			end
+			generate_new_message
+			set_data_and_publish (message)
 		end
 
-	set_data_from_broker (a_data: like data)
-			-- <Precursor>
-			-- Make this call when using a {PS_BROKER}.
-			-- When using a {PS_BROKER} we do not need to publish as the broker handles it.
+	on_brokered_publish (a_data: like data)
+			-- What happens `on_brokered_publish'.
 		do
-			check like_message: attached {like message} a_data as al_message then
-				message := al_message
-					-- Code copied from ancestor instead of making Precursor (a_data) call.
-				data := a_data
-				-- publish <-- This call (from the ancestor) is removed as it creates circular endless looping calls.
-			end
+			generate_new_message
+			data := message
 		end
 
 feature {NONE} -- Implementation
 
+	generate_new_message
+			-- `generate_new_message' into `message'
+		do
+			message := randomizer.random_paragraph.twin + Explanation
+		end
+
 	message: detachable STRING_32
 			-- `message' for Current to receive (as Subscriber) from the GUI and publish back to the GUI.
+
+	Explanation: STRING = "%N%NThis data is being generated in {MOCK_MODEL} and sent on to whoever the subscriber is, which does not have to be just or only {MOCK_LABEL}."
+
+feature {NONE} -- Implementation
+
+	randomizer: RANDOMIZER
+			-- `randomizer' of Current.
+		once ("OBJECT")
+			create Result
+		end
 
 end

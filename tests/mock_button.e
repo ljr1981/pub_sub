@@ -43,15 +43,7 @@ feature {NONE} -- Implementation: Event Handlers
 	on_click
 			-- Process `on_click' of `widget', and publish with `set_data_and_publish'.
 		do
-			set_data_and_publish (randomizer.random_paragraph.to_string_32)
-		end
-
-feature {NONE} -- Implementation
-
-	randomizer: RANDOMIZER
-			-- `randomizer' of Current.
-		once
-			create Result
+			set_data_and_publish (Void)
 		end
 
 end

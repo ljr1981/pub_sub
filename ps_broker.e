@@ -13,53 +13,24 @@ note
 class
 	PS_BROKER [G -> detachable ANY]
 
-feature -- Access
+inherit
+	PS_PUBLISHER [detachable ANY]
 
-	publishers: ARRAYED_LIST [attached like publisher_anchor]
-			-- `publishers' of Current {PS_BROKER}.
-		attribute
-			create Result.make (default_publisher_capacity)
-		end
-
-	default_publisher_capacity: INTEGER = 10
-
-	subscribers: ARRAYED_LIST [attached like subscriber_anchor]
-			-- `subscribers' of Current {PS_BROKER}.
-		attribute
-			create Result.make (default_subscriber_capacity)
-		end
-
-	default_subscriber_capacity: INTEGER = 10
+	PS_SUBSCRIBER [detachable ANY]
 
 feature -- Basic Operations
 
-	add_publisher (a_publisher: attached like publisher_anchor)
-			-- `add_brokered_publisher' as `a_publisher' to `publishers' and add subscriptions from all `subscribers'.
+	add_brokered_subscription (a_publisher: PS_PUBLISHER [detachable ANY]; a_subscriber: PS_SUBSCRIBER [detachable ANY]; a_subscription_agent: like subscription_agent)
+			-- `add_brokered_subscription' to `a_publisher' from `a_subscriber' using `a_subscription_agent'.
 		do
-			publishers.force (a_publisher)
-			across subscribers as ic_subscriber loop
-				a_publisher.add_subscriber (ic_subscriber.item)
-			end
+			a_subscriber.subscribe_to (a_publisher, a_subscription_agent)
 		end
 
-	add_subscriber (a_subscriber: attached like subscriber_anchor; a_agent: attached like {attached like subscriber_anchor}.subscription_agent)
-			-- `add_brokered_subscriber' as `a_subscriber' to `subscribers' and subscribe to `publishers'.
-		require
-			not_subscribers: not subscribers.has (a_subscriber)
+	add_brokered_with_middleman (a_publisher: PS_PUBLISHER [detachable ANY]; a_middle_man: PS_BROKER [detachable ANY]; a_middle_man_subscription_agent: like subscription_agent; a_subscriber: PS_SUBSCRIBER [detachable ANY]; a_subscription_agent: like subscription_agent)
+			-- `add_brokered_with_middleman' as `a_middle_man' between `a_publisher' and `a_subscriber'.
 		do
-			a_subscriber.set_subscription_agent (a_agent)
-			subscribers.force (a_subscriber)
-			across publishers as ic_publisher loop
-				ic_publisher.item.add_subscriber (a_subscriber)
-			end
+			a_middle_man.subscribe_to (a_publisher, a_middle_man_subscription_agent)
+			a_subscriber.subscribe_to (a_middle_man, a_subscription_agent)
 		end
-
-feature -- Anchors
-
-	publisher_anchor: detachable PS_PUBLISHER [G]
-			-- `publisher_anchor' type.
-
-	subscriber_anchor: detachable PS_SUBSCRIBER [G]
-			-- `subscriber_anchor' type.
 
 end
