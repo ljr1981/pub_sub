@@ -80,7 +80,7 @@ feature {NONE} -- Initialization
 			extend (main_box)
 			set_minimum_size (800, 600)
 
-				-- PUB-SUB MVC with direct `button' to `model' and `model' to `label' ...
+				-- PUB-SUB MVC with direct `button'-to-`model' and `model'-to-`label' ...
 			model.subscribe_to (button, agent model.on_direct_publish)
 			label.subscribe_to (model, agent label.set_data)
 
