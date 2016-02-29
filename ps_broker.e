@@ -3,7 +3,7 @@ note
 	synopsis: "[
 		The purpose of a "Broker" is to facilitate that an added {PS_PUBLICATION} will
 		automatically get subscriptions from all known {PS_SUBSCRIPTION}s. Likewise,
-		adding a {PS_SUBSCRIPTION} will place subscriptions on all known {PUBLISHER}s.
+		adding a {PS_SUBSCRIPTION} will place subscriptions on all known {PS_PUBLICATION}s.
 		
 		The additional purpose of this class is to further remove direct knowledge
 		of {PS_PUBLICATION} and {PS_SUBSCRIPTION} from each other. Third party brokers can

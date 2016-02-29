@@ -1,7 +1,7 @@
 note
 	description: "Abstract notion of a {PS_PUBLICATION}."
 	synopsis: "[
-		A {PS_PUBLICATION} (like Current) has one or more {SUBSCRIBER}s who "subscribe"
+		A {PS_PUBLICATION} (like Current) has one or more {PS_SUBSCRIPTION} items which "subscribe"
 		by way of adding themselves to the list of `subscriptions' (agents). Once
 		on this list, any change to the `data' through `set_data_and_publish' will trigger a
 		call to all `subscriptions' (agents) through a call to `publish'.
@@ -27,7 +27,7 @@ feature -- Access
 		end
 
 	data: detachable G
-			-- `data' to send in `publish' to subscribers held in `subscriptions' list.
+			-- `data' to send in `publish' to {PS_SUBSCRIPTION}s held in `subscriptions' list.
 
 feature -- Settings
 
@@ -74,9 +74,9 @@ feature {PS_PUBLISHING_AGENT} -- Implementation
 		note
 			synopsis: "[
 				Direct descendants of Current {PS_PUBLICATION} or a {PS_PUBLISHING_AGENT} will have the
-				export rights to initiate a call to `publish', which sends the a reference to
+				export rights to initiate a call to `publish', which sends the reference to
 				`data' to each {PS_SUBSCRIPTION} with an agent in the `subscriptions' list. Thus, you
-				can either let a descendant by a type-of {PUBLISHER} or you can create a
+				can either let a descendant by a type-of {PS_PUBLICATION} or you can create a
 				{PS_PUBLISHING_AGENT}, which has one or more {PS_PUBLICATION} objects, which then have
 				the right to tell the {PUBLISHER} to `publish'.
 				]"

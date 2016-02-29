@@ -3,9 +3,9 @@ note
 	synopsis: "[
 		A {PS_PUBLISHING_AGENT} is an abstraction that knows about a group of
 		`publishers' that it cares about in terms of either updating and
-		publishing the `data' of the {PUBLISHER} when it changes or that
+		publishing the `data' of the {PS_PUBLICATION} when it changes or that
 		"notices" changes from other entities on `data' and calls for the
-		{PUBLISHER} to `publish'.
+		{PS_PUBLICATION} to `publish'.
 		]"
 
 deferred class

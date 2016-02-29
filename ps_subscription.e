@@ -3,7 +3,7 @@ note
 	synopsis: "[
 		A {PS_SUBSCRIPTION} wants to know about changes to {PS_PUBLICATION}.data
 		by way of adding its `subscription_agent' to the `subscriptions' of it
-		through the mechanism of a call to `subscribe_to', passing said {PUBLISHER}
+		through the mechanism of a call to `subscribe_to', passing said {PS_PUBLICATION}
 		and an optional agent.
 		
 		With regards to the relationship between `subscription_agent' and the `a_agent'
