@@ -7,6 +7,6 @@ class
 	PS_DISPATCH_SUBSCRIBER
 
 inherit
-	PS_SUBSCRIBER [detachable ANY]
+	PS_SUBSCRIPTION [detachable ANY]
 
 end

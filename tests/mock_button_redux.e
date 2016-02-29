@@ -43,7 +43,7 @@ inherit
 			make_with_text_and_action
 		end
 
-	PS_PUBLISHER [detachable ANY]
+	PS_PUBLICATION [detachable ANY]
 		undefine
 			default_create,
 			copy

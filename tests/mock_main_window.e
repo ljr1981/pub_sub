@@ -101,12 +101,12 @@ feature {NONE} -- GUI Objects
 	button,
 	broker_button,
 	model_broker: MOCK_BUTTON
-			-- `button' as first step View-controller triggering {PS_PUBLISHER}.
+			-- `button' as first step View-controller triggering {PS_PUBLICATION}.
 
 	model: MOCK_MODEL
-			-- `model' as {PS_SUBSCRIBER} to `button' and {PS_PUBLISHER} to `label'.
+			-- `model' as {PS_SUBSCRIPTION} to `button' and {PS_PUBLICATION} to `label'.
 
 	label: MOCK_LABEL
-			-- `label' as {PS_SUBSCRIBER} to `model', which completes the MVC cycle.
+			-- `label' as {PS_SUBSCRIPTION} to `model', which completes the MVC cycle.
 
 end

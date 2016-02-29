@@ -12,7 +12,7 @@ inherit
 			widget
 		end
 
-	PS_PUBLISHER [detachable ANY]
+	PS_PUBLICATION [detachable ANY]
 
 create
 	make_with_text,

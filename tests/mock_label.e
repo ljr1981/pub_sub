@@ -1,6 +1,6 @@
 note
 	description: "[
-		Mock Label as update-enabled {PS_SUBSCRIBER}.
+		Mock Label as update-enabled {PS_SUBSCRIPTION}.
 		]"
 
 class
@@ -13,7 +13,7 @@ inherit
 			widget
 		end
 
-	PS_SUBSCRIBER [detachable ANY]
+	PS_SUBSCRIPTION [detachable ANY]
 		undefine
 			default_create
 		end

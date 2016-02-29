@@ -1,36 +1,33 @@
 note
-	description: "Abstract notion of a {PS_PUBLISHER}."
+	description: "Abstract notion of a {PS_PUBLICATION}."
 	synopsis: "[
-		A {PS_PUBLISHER} (like Current) has one or more {SUBSCRIBER}s who "subscribe"
+		A {PS_PUBLICATION} (like Current) has one or more {SUBSCRIBER}s who "subscribe"
 		by way of adding themselves to the list of `subscriptions' (agents). Once
 		on this list, any change to the `data' through `set_data_and_publish' will trigger a
 		call to all `subscriptions' (agents) through a call to `publish'.
 		
-		See {PS_SUBSCRIBER} for more information about the subscription process as
-		accomplished from the viewpoint of the {PS_SUBSCRIBER}.
+		See {PS_SUBSCRIPTION} for more information about the subscription process as
+		accomplished from the viewpoint of the {PS_SUBSCRIPTION}.
 		
-		One may add a {PS_SUBSCRIBER} through the `add_subscriber' call, but the passed
+		One may add a {PS_SUBSCRIPTION} through the `add_subscriber' call, but the passed
 		object must have its `subscription_agent' set (i.e. it cannot be Void).
 		
-		One may also add a list of {PS_SUBSCRIBER} items through `add_subscribers'.
+		One may also add a list of {PS_SUBSCRIPTION} items through `add_subscribers'.
 		]"
 
 class
-	PS_PUBLISHER [G -> detachable ANY create default_create end]
+	PS_PUBLICATION [G -> detachable ANY create default_create end]
 
 feature -- Access
 
 	subscriptions: ACTION_SEQUENCE [TUPLE [like data]]
-			-- `subscriptions' to Current {PS_PUBLISHER}.
+			-- `subscriptions' to Current {PS_PUBLICATION}.
 		attribute
 			create Result
 		end
 
 	data: detachable G
 			-- `data' to send in `publish' to subscribers held in `subscriptions' list.
-		attribute
-			create Result
-		end
 
 feature -- Settings
 
@@ -67,7 +64,7 @@ feature -- Basic Operations
 
 feature -- Anchors
 
-	subscriber_anchor: detachable PS_SUBSCRIBER [detachable ANY]
+	subscriber_anchor: detachable PS_SUBSCRIPTION [detachable ANY]
 			-- `subscriber_anchor' type.
 
 feature {PS_PUBLISHING_AGENT} -- Implementation
@@ -76,11 +73,11 @@ feature {PS_PUBLISHING_AGENT} -- Implementation
 			-- `publish' `data' to all `subscriptions' by calling thier `subscription_agent' items.
 		note
 			synopsis: "[
-				Direct descendants of Current {PS_PUBLISHER} or a {PS_PUBLISHING_AGENT} will have the
+				Direct descendants of Current {PS_PUBLICATION} or a {PS_PUBLISHING_AGENT} will have the
 				export rights to initiate a call to `publish', which sends the a reference to
-				`data' to each {PS_SUBSCRIBER} with an agent in the `subscriptions' list. Thus, you
+				`data' to each {PS_SUBSCRIPTION} with an agent in the `subscriptions' list. Thus, you
 				can either let a descendant by a type-of {PUBLISHER} or you can create a
-				{PS_PUBLISHING_AGENT}, which has one or more {PS_PUBLISHER} objects, which then have
+				{PS_PUBLISHING_AGENT}, which has one or more {PS_PUBLICATION} objects, which then have
 				the right to tell the {PUBLISHER} to `publish'.
 				]"
 		do

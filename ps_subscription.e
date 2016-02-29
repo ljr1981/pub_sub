@@ -1,7 +1,7 @@
 note
-	description: "Abstract notion of a {PS_SUBSCRIBER}."
+	description: "Abstract notion of a {PS_SUBSCRIPTION}."
 	synopsis: "[
-		A {PS_SUBSCRIBER} wants to know about changes to {PS_PUBLISHER}.data
+		A {PS_SUBSCRIPTION} wants to know about changes to {PS_PUBLICATION}.data
 		by way of adding its `subscription_agent' to the `subscriptions' of it
 		through the mechanism of a call to `subscribe_to', passing said {PUBLISHER}
 		and an optional agent.
@@ -11,19 +11,19 @@ note
 		either by pre-setting it on `subscription_agent' or by passing in the optional
 		`a_agent' argument (e.g. not Void). Moreover, a non-Void `a_agent' passed to
 		`subscribe_to' will override any existing `subscription_agent' already set on
-		the {PS_SUBSCRIBER} (e.g. it will be ignored in favor of the argument agent).
+		the {PS_SUBSCRIPTION} (e.g. it will be ignored in favor of the argument agent).
 		
-		One may also subscribe the Current {PS_SUBSCRIBER} to `a_publishers' list in
+		One may also subscribe the Current {PS_SUBSCRIPTION} to `a_publishers' list in
 		`subscribe_all'.
 		]"
 
 class
-	PS_SUBSCRIBER [G -> detachable ANY]
+	PS_SUBSCRIPTION [G -> detachable ANY]
 
 feature -- Access
 
 	subscription_agent: detachable PROCEDURE [ANY, TUPLE [like data_type_anchor]]
-			-- Optional `subscription_agent' used in `subscribe_to' of Current {PS_SUBSCRIBER}.
+			-- Optional `subscription_agent' used in `subscribe_to' of Current {PS_SUBSCRIPTION}.
 
 feature -- Settings
 
@@ -59,11 +59,11 @@ feature -- Basic Operations
 
 feature {NONE} -- Type anchors
 
-	publisher_type_anchor: detachable PS_PUBLISHER [G]
-			-- Valid `publisher_type_anchor' that {PS_PUBLISHER}s for Current {PS_SUBSCRIBER}.
+	publisher_type_anchor: detachable PS_PUBLICATION [G]
+			-- Valid `publisher_type_anchor' that {PS_PUBLICATION}s for Current {PS_SUBSCRIPTION}.
 
 	data_type_anchor: detachable G
-			-- Valid `data_type_anchor' that Current {PS_SUBSCRIBER} can consume from {PS_PUBLISHER}.
+			-- Valid `data_type_anchor' that Current {PS_SUBSCRIPTION} can consume from {PS_PUBLICATION}.
 
 invariant
 	publisher_type_anchor_void: not attached publisher_type_anchor

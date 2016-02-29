@@ -3,10 +3,10 @@ note
 		Mock Model.
 		]"
 	synopsis: "[
-		(A) We only inherit from {PS_SUBSCRIBER} if our model object wants to get 
+		(A) We only inherit from {PS_SUBSCRIPTION} if our model object wants to get 
 		information from the GUI.
 		
-		(B) We only inherit from {PS_PUBLISHER} if our GUI wants to get information
+		(B) We only inherit from {PS_PUBLICATION} if our GUI wants to get information
 		from our model.
 		]"
 
