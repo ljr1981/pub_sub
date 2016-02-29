@@ -85,12 +85,4 @@ feature {NONE} -- Implementation: Event Handlers
 			set_data_and_publish (randomizer.random_paragraph.to_string_32)
 		end
 
-feature {NONE} -- Implementation
-
-	randomizer: RANDOMIZER
-			-- `randomizer' of Current.
-		once
-			create Result
-		end
-
 end

@@ -45,12 +45,4 @@ feature {NONE} -- Implementation
 
 	Explanation: STRING = "%N%NThis data is being generated in {MOCK_MODEL} and sent on to whoever the subscriber is, which does not have to be just or only {MOCK_LABEL}."
 
-feature {NONE} -- Implementation
-
-	randomizer: RANDOMIZER
-			-- `randomizer' of Current.
-		once ("OBJECT")
-			create Result
-		end
-
 end

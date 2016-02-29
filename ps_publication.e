@@ -29,6 +29,12 @@ feature -- Access
 	data: detachable G
 			-- `data' to send in `publish' to {PS_SUBSCRIPTION}s held in `subscriptions' list.
 
+	uuid: UUID
+			-- `uuid' of Current (like an ISBN, but stronger).
+		once ("OBJECT")
+			Result := randomizer.uuid
+		end
+
 feature -- Settings
 
 	set_data_and_publish (a_data: like data)
@@ -66,6 +72,14 @@ feature -- Anchors
 
 	subscriber_anchor: detachable PS_SUBSCRIPTION [detachable ANY]
 			-- `subscriber_anchor' type.
+
+feature {NONE} -- Implementation
+
+	randomizer: RANDOMIZER
+			-- `randomizer' once'd to provide random {NATURAL} numbers for `uuid' initialization.
+		once
+			create Result
+		end
 
 feature {PS_PUBLISHING_AGENT} -- Implementation
 
