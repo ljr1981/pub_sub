@@ -15,8 +15,16 @@ class
 
 inherit
 	PS_PUBLICATION [detachable ANY]
+		rename
+			uuid as publication_number,
+			uuid_internal as publication_number_internal
+		end
 
 	PS_SUBSCRIPTION [detachable ANY]
+		rename
+			uuid as subscription_number,
+			uuid_internal as subscription_number_internal
+		end
 
 feature -- Basic Operations
 

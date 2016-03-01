@@ -37,7 +37,7 @@ feature {NONE} -- Implementation
 	generate_new_message
 			-- `generate_new_message' into `message'
 		do
-			message := randomizer.random_paragraph.twin + Explanation
+			message := (create {RANDOMIZER}).random_paragraph.twin + Explanation
 		end
 
 	message: detachable STRING_32

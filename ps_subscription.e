@@ -25,6 +25,17 @@ feature -- Access
 	subscription_agent: detachable PROCEDURE [ANY, TUPLE [like data_type_anchor]]
 			-- Optional `subscription_agent' used in `subscribe_to' of Current {PS_SUBSCRIPTION}.
 
+	uuid: UUID
+			-- `uuid' of Current {PS_SUBSCRIPTION}.
+		do
+			if attached uuid_internal as al_uuid then
+				Result := al_uuid
+			else
+				Result := (create {RANDOMIZER}).uuid
+				uuid_internal := Result
+			end
+		end
+
 feature -- Settings
 
 	set_subscription_agent (a_agent: attached like subscription_agent)
@@ -64,6 +75,11 @@ feature {NONE} -- Type anchors
 
 	data_type_anchor: detachable G
 			-- Valid `data_type_anchor' that Current {PS_SUBSCRIPTION} can consume from {PS_PUBLICATION}.
+
+feature {NONE} -- Implementation
+
+	uuid_internal: detachable UUID
+			-- `uuid_internal' implementation.
 
 invariant
 	publisher_type_anchor_void: not attached publisher_type_anchor

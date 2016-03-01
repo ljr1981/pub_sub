@@ -16,14 +16,12 @@ feature -- Access
 
 feature -- Subscribe
 
-	subscribe_to_publication (a_subscriber_agent: PROCEDURE [ANY, TUPLE [G]]; a_publication: PS_PUBLICATION [G])
-			-- `subscribe_to_publication' with `a_subscriber_agent' to `a_publication'.
-		local
-			l_subscription: PS_SUBSCRIPTION [G]
+	subscribe_to_publication (a_subscription: PS_SUBSCRIPTION [G]; a_publication: PS_PUBLICATION [G])
+			-- `subscribe_to_publication' with `a_subscription' to `a_publication'.
+		require
+			new_subscription: across subscriptions as ic_subs all ic_subs.item.uuid /= a_subscription.uuid end
 		do
-			create l_subscription
-			l_subscription.set_subscription_agent (a_subscriber_agent)
-			a_publication.add_subscription (l_subscription)
+			a_publication.add_subscription (a_subscription)
 		end
 
 feature -- Settings
