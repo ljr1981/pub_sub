@@ -12,7 +12,7 @@ note
 		One may add a {PS_SUBSCRIPTION} through the `add_subscriber' call, but the passed
 		object must have its `subscription_agent' set (i.e. it cannot be Void).
 		
-		One may also add a list of {PS_SUBSCRIPTION} items through `add_subscribers'.
+		One may also add a list of {PS_SUBSCRIPTION} items through `add_subscriptions'.
 		]"
 
 class
@@ -46,22 +46,22 @@ feature -- Settings
 
 feature -- Basic Operations
 
-	add_subscriber (a_subscriber: attached like subscriber_anchor)
-			-- `add_subscriber' `subscription_agent' of `a_subscriber' to `subscriptions'.
+	add_subscription (a_subscription: attached like subscription_anchor)
+			-- `add_subscriber' `subscription_agent' of `a_subscription' to `subscriptions'.
 		require
-			has_agent: attached a_subscriber.subscription_agent
+			has_agent: attached a_subscription.subscription_agent
 		do
-			check attached {PROCEDURE [ANY, TUPLE [detachable G]]} a_subscriber.subscription_agent as al_agent then
+			check attached {PROCEDURE [ANY, TUPLE [detachable G]]} a_subscription.subscription_agent as al_agent then
 				subscriptions.extend (al_agent)
 			end
 		end
 
-	add_subscribers (a_subscribers: ARRAY [attached like subscriber_anchor])
-			-- `add_subscribers' as `a_subscribers' to `subscriptions'.
+	add_subscriptions (a_subscriptions: ARRAY [attached like subscription_anchor])
+			-- `add_subscriptions' from `a_subscriptions' to `subscriptions'.
 		require
-			all_have_agents: across a_subscribers as ic_subs all attached ic_subs.item.subscription_agent end
+			all_have_agents: across a_subscriptions as ic_subs all attached ic_subs.item.subscription_agent end
 		do
-			across a_subscribers as ic_subs loop
+			across a_subscriptions as ic_subs loop
 				check attached {PROCEDURE [ANY, TUPLE [detachable G]]} ic_subs.item.subscription_agent as al_agent then
 					subscriptions.extend (al_agent)
 				end
@@ -70,8 +70,8 @@ feature -- Basic Operations
 
 feature -- Anchors
 
-	subscriber_anchor: detachable PS_SUBSCRIPTION [detachable ANY]
-			-- `subscriber_anchor' type.
+	subscription_anchor: detachable PS_SUBSCRIPTION [detachable ANY]
+			-- `subscription_anchor' type.
 
 feature {NONE} -- Implementation
 

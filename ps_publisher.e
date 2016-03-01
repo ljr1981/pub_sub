@@ -4,6 +4,12 @@ note
 		]"
 	design: "[
 		{PS_PUBLISHER}s have `publications' that the `publish' to {PS_SUBSCRIBER} {PS_SUBSCRIPTION}s.
+		
+		Publications are held in a hash with an integer key as a "publication number" for reference
+		by subscribers wish to subscribe to particular publications of the Current {PS_PUBLISHER}.
+		
+		Subscribers call `add_subscription' in order to add their subscription agents to the
+		subscriptions on `publications'.
 		]"
 
 class
@@ -11,23 +17,29 @@ class
 
 feature -- Access
 
-	publications: ARRAYED_LIST [PS_PUBLICATION [G]]
+	publications: HASH_TABLE [attached like publication_anchor, INTEGER]
 			-- `publications' of Current {PS_PUBLISHER}.
 		attribute
 			create Result.make (10)
 		end
 
-feature -- Settings
+feature -- Subscribe
 
-	add_publication (a_publication: PS_PUBLICATION [G])
-			-- `add_publication' `a_publication'.
+	add_subscription (a_subscription: TUPLE [subscription_agent: PROCEDURE [ANY, TUPLE [G]]; publication_number: INTEGER])
+			-- `add_subscription' `a_subscription' with a `subscription_agent' for a `publication_number'.
 		require
-			not_has: across publications as ic all ic.item.uuid /= a_publication.uuid end
+			has_key: publications.has (a_subscription.publication_number)
+		local
+			l_subscription: attached like {PS_SUBSCRIBER [G]}.subscription_anchor
 		do
-			publications.force (a_publication)
-		ensure
-			added: publications.has (a_publication)
+			check attached {attached like publication_anchor} publications.item (a_subscription.publication_number) as al_publication then
+				create l_subscription
+				l_subscription.set_subscription_agent (a_subscription.subscription_agent)
+				al_publication.add_subscription (l_subscription)
+			end
 		end
+
+feature -- Settings
 
 	add_publications (a_publications: like publications)
 			-- `add_publications' like `a_publications'.
@@ -40,13 +52,42 @@ feature -- Settings
 								end
 							end
 		do
-			publications.append (a_publications)
+			across
+				a_publications as ic_adding
+			loop
+				add_publication (ic_adding.item)
+			end
 		ensure
 			added: 	across
 						a_publications as ic_adding
 					all
-						publications.has (ic_adding.item)
+						across
+							publications as ic_pubs
+						some
+							ic_pubs.item ~ ic_adding.item
+						end
 					end
 		end
+
+	add_publication (a_publication: attached like publication_anchor)
+			-- `add_publication' `a_publication'.
+		require
+			not_has: across publications as ic all ic.item.uuid /= a_publication.uuid end
+		local
+			l_count: INTEGER
+		do
+			l_count := publications.count
+			publications.force (a_publication, publications.count + 1)
+		ensure
+			added: across
+				publications as ic_pubs
+			some
+				ic_pubs.item ~ a_publication
+			end
+		end
+
+feature {NONE} -- Implementation: Anchors
+
+	publication_anchor: detachable PS_PUBLICATION [G]
 
 end

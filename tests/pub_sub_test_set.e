@@ -63,7 +63,7 @@ feature -- Test routines
 			create l_subscriber
 			published_data := Void
 			l_subscriber.set_subscription_agent (agent handle_info)
-			l_publisher.add_subscribers (<<l_subscriber>>)
+			l_publisher.add_subscriptions (<<l_subscriber>>)
 			l_publisher.set_data_and_publish (test_data)
 			assert ("has_publisher_test_data_2", attached {like test_data} published_data as al_data implies
 												al_data.same_string (test_data))
