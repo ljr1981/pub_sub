@@ -18,6 +18,19 @@ inherit
 
 feature -- Test routines
 
+	publisher_creation_test
+			-- `publisher_test' of {PS_PUBLISHER}.
+		local
+			l_pub: PS_PUBLISHER [ANY]
+			l_publication: PS_PUBLICATION [ANY]
+		do
+			create l_pub
+			create l_publication
+			assert_integers_equal ("has_uuid", 36, l_publication.uuid.out.count)
+			l_pub.add_publication (l_publication)
+			assert_integers_equal ("has_one", 1, l_pub.publications.count)
+		end
+
 	pub_sub_test
 			-- Testing of {PS_PUBLICATION} and {PS_SUBSCRIPTION} interaction.
 		note
