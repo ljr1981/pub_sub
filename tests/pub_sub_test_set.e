@@ -16,20 +16,79 @@ inherit
 			default_create
 		end
 
-feature -- Test routines
+feature -- Tests: PS_PUBLISHER and PS_SUBSCRIBER
 
-	publisher_creation_test
+	publisher_subscriber_creation_test
 			-- `publisher_test' of {PS_PUBLISHER}.
+		note
+			testing:
+				"execution/isolated",
+				"covers/{PS_PUBLISHER}.default_create",
+				"covers/{PS_PUBLISHER}.add_publication",
+				"covers/{PS_PUBLISHER}.publish_by_id",
+				"covers/{PS_PUBLISHER}.published_by_uuid",
+				"covers/{PS_PUBLISHER}.published_by_uuid_string",
+				"covers/{PS_PUBLICATION}.default_create"
 		local
 			l_pub: PS_PUBLISHER [ANY]
 			l_publication: PS_PUBLICATION [ANY]
+			l_sub: PS_SUBSCRIBER [ANY]
+			l_subscription: PS_SUBSCRIPTION [ANY]
 		do
+				-- Set up Publisher and Publications
 			create l_pub
 			create l_publication
 			assert_integers_equal ("has_uuid", 36, l_publication.uuid.out.count)
 			l_pub.add_publication (l_publication)
 			assert_integers_equal ("has_one", 1, l_pub.publications.count)
+
+				-- Set up Subscriber and Subscriptions
+			create l_sub
+			create l_subscription
+			assert_integers_equal ("has_uuid", 36, l_subscription.uuid.out.count)
+			l_sub.subscribe_to (l_publication, agent on_publication_published)
+
+				-- Publish the publication through the publisher
+				-- Test by ID
+			l_pub.publish_by_id (published_data_string, 1)
+			assert_strings_equal ("subscription_data_received_from_publisher", published_data_string, attached_published_data_at_subscriber_level)
+
+				-- Test by UUID
+			published_data_at_subscriber_level := Void
+			assert ("empty_subscribed_data", not attached published_data_at_subscriber_level)
+			l_pub.published_by_uuid (published_data_string, l_publication.uuid)
+			assert_strings_equal ("subscription_data_received_from_publisher", published_data_string, attached_published_data_at_subscriber_level)
+
+				-- Test by UUID as STRING
+			published_data_at_subscriber_level := Void
+			assert ("empty_subscribed_data", not attached published_data_at_subscriber_level)
+			l_pub.published_by_uuid_string (published_data_string, l_publication.uuid.out)
+			assert_strings_equal ("subscription_data_received_from_publisher", published_data_string, attached_published_data_at_subscriber_level)
 		end
+
+feature {NONE} -- Implementation: PS_PUBLISHER and PS_SUBSCRIBER support
+
+	published_data_string: STRING = "WE PUBLISHED_SOMETHING!"
+			-- What our publisher publishes.
+
+	on_publication_published (a_data: ANY)
+			-- What happens in the subscriber (Current) when the publisher publishes their data (event).
+		do
+			check has_data: attached {attached like published_data_at_subscriber_level} a_data as al_data then
+				published_data_at_subscriber_level := al_data
+			end
+		end
+
+	attached_published_data_at_subscriber_level: attached like published_data_at_subscriber_level
+			-- An attached version of `published_data_at_subscriber_level'.
+		do
+			check was_published: attached published_data_at_subscriber_level as al_published then Result := al_published end
+		end
+
+	published_data_at_subscriber_level: detachable STRING
+			-- What was potentially published by the publisher?
+
+feature -- Tests: PS_PUBLICATION and PS_SUBSCRIPTION
 
 	pub_sub_test
 			-- Testing of {PS_PUBLICATION} and {PS_SUBSCRIPTION} interaction.
@@ -105,7 +164,7 @@ feature -- Test routines
 --			broker.add_subscriber (label_subscriber, agent label_subscriber.set_data)
 		end
 
-feature {NONE} -- Implementation
+feature {NONE} -- Implementation: PS_PUBLICATION and PS_SUBSCRIPTION
 
 	broker: PS_BROKER [detachable ANY] do create Result end
 

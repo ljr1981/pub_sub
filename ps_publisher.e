@@ -3,7 +3,7 @@ note
 		Representation of a {PS_PUBLISHER} of {PS_PUBLICATION} items.
 		]"
 	design: "[
-		{PS_PUBLISHER}s have `publications' that the `publish' to {PS_SUBSCRIBER} {PS_SUBSCRIPTION}s.
+		{PS_PUBLISHER}s have `publications' that the `publish_by_id' to {PS_SUBSCRIBER} {PS_SUBSCRIPTION}s.
 		
 		Publications are held in a hash with an integer key as a "publication number" for reference
 		by subscribers wish to subscribe to particular publications of the Current {PS_PUBLISHER}.
@@ -36,6 +36,42 @@ feature -- Subscribe
 				create l_subscription
 				l_subscription.set_subscription_agent (a_subscription.subscription_agent)
 				al_publication.add_subscription (l_subscription)
+			end
+		end
+
+feature -- Publish
+
+	publish_by_id (a_data: G; a_publication_id: INTEGER)
+			-- `publish_by_id' `a_data' to `a_publication_id'.
+		require
+			has_id: publications.has_key (a_publication_id)
+		do
+			check has_publication_id: attached {PS_PUBLICATION [G]} publications.item (a_publication_id) as al_publication then
+				al_publication.set_data_and_publish (a_data)
+			end
+		end
+
+	published_by_uuid (a_data: G; a_uuid: UUID)
+			-- `publish_by_uuid' `a_data' identified by `a_uuid'.
+		require
+			has_uuid: across publications as ic_pub some ic_pub.item.uuid ~ a_uuid end
+		do
+			across publications as ic_pub loop
+				if ic_pub.item.uuid = a_uuid then
+					ic_pub.item.set_data_and_publish (a_data)
+				end
+			end
+		end
+
+	published_by_uuid_string (a_data: G; a_uuid_string: STRING)
+			-- `published_by_uuid_string' `a_data' identified by `a_uuid_string'.
+		require
+			has_uuid_string: across publications as ic_pub some ic_pub.item.uuid.out.same_string (a_uuid_string) end
+		do
+			across publications as ic_pub loop
+				if ic_pub.item.uuid.out.same_string (a_uuid_string) then
+					ic_pub.item.set_data_and_publish (a_data)
+				end
 			end
 		end
 

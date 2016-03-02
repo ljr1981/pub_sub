@@ -48,15 +48,15 @@ feature -- Settings
 
 feature -- Basic Operations
 
-	subscribe_to (a_publisher: attached like publisher_type_anchor; a_agent: like subscription_agent)
+	subscribe_to (a_publication: attached like publisher_type_anchor; a_agent: like subscription_agent)
 			-- `subscribe_to' `a_publisher', with optional `a_agent' or default `subscription_agent'
 		require
 			has_agent: attached a_agent or else attached subscription_agent
 		do
 			if attached a_agent then
-				a_publisher.subscriptions.extend (a_agent)
+				a_publication.subscriptions.extend (a_agent)
 			elseif attached subscription_agent as al_agent then
-				a_publisher.subscriptions.extend (al_agent)
+				a_publication.subscriptions.extend (al_agent)
 			end
 		end
 
