@@ -13,7 +13,7 @@ note
 		]"
 
 class
-	PS_PUBLISHER [G -> ANY]
+	PS_PUBLISHER [G -> detachable ANY]
 
 feature -- Access
 
@@ -77,7 +77,7 @@ feature -- Publish
 
 feature -- Settings
 
-	add_publications (a_publications: like publications)
+	add_publications (a_publications: ARRAY [attached like publication_anchor])
 			-- `add_publications' like `a_publications'.
 		require
 			not_has_all: across publications as ic_pubs all
@@ -103,6 +103,7 @@ feature -- Settings
 							ic_pubs.item ~ ic_adding.item
 						end
 					end
+			count_correct: publications.count = old publications.count + a_publications.count
 		end
 
 	add_publication (a_publication: attached like publication_anchor)

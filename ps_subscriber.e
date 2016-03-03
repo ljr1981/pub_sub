@@ -4,7 +4,7 @@ note
 		]"
 
 class
-	PS_SUBSCRIBER [G -> ANY]
+	PS_SUBSCRIBER [G -> detachable ANY]
 
 feature -- Access
 
@@ -28,20 +28,24 @@ feature -- Subscribe
 
 feature -- Settings
 
-	add_subscriptions (a_subscriptions: ARRAY [attached like subscription_anchor])
-			-- `add_subscriptions' from `a_subscriptions' to `subscriptions'.
+	add_subscription_agents (a_subscription_agents: ARRAY [PROCEDURE [ANY, TUPLE [detachable G]]])
+			-- `add_subscription_agents' from `a_subscription_agents' to `subscriptions'.
 		do
 			across
-				a_subscriptions as ic_subs
+				a_subscription_agents as ic_subs
 			loop
-				add_subscription (ic_subs.item)
+				add_subscription_agent (ic_subs.item)
 			end
 		end
 
-	add_subscription (a_subscription: attached like subscription_anchor)
-			-- `add_subscription' `a_subscription' to `subscriptions'.
+	add_subscription_agent (a_subscription_agent: PROCEDURE [ANY, TUPLE [detachable G]])
+			-- `add_subscription_agent' `a_subscription_agent' to `subscriptions'.
+		local
+			l_subscription: attached like subscription_anchor
 		do
-			subscriptions.force (a_subscription, subscriptions.count + 1)
+			create l_subscription
+			l_subscription.set_subscription_agent (a_subscription_agent)
+			subscriptions.force (l_subscription, subscriptions.count + 1)
 		end
 
 feature {NONE} -- Implementation: Anchors
