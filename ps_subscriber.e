@@ -23,7 +23,7 @@ feature -- Subscribe
 		do
 			create l_subscription
 			l_subscription.subscribe_to (a_publication, a_subscription_agent)
-			add_subscription (l_subscription)
+			subscriptions.force (l_subscription, subscriptions.count + 1)
 		end
 
 feature -- Settings
