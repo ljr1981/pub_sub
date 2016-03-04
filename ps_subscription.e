@@ -20,6 +20,9 @@ note
 class
 	PS_SUBSCRIPTION [G -> detachable ANY]
 
+inherit
+	PS_ANY
+	
 feature -- Access
 
 	subscription_agent: detachable PROCEDURE [ANY, TUPLE [like data_type_anchor]]

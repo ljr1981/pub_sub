@@ -11,6 +11,9 @@ note
 deferred class
 	PS_PUBLISHING_AGENT
 
+inherit
+	PS_ANY
+	
 feature -- Access
 
 	publishers: ARRAYED_LIST [PS_PUBLICATION [detachable ANY]]

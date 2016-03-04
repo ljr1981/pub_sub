@@ -18,6 +18,9 @@ note
 class
 	PS_PUBLICATION [G -> detachable ANY create default_create end]
 
+inherit
+	PS_ANY
+	
 feature -- Access
 
 	subscriptions: ACTION_SEQUENCE [TUPLE [like data]]

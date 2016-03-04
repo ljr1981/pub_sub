@@ -6,6 +6,9 @@ note
 class
 	PS_SUBSCRIBER [G -> detachable ANY]
 
+inherit
+	PS_ANY
+	
 feature -- Access
 
 	subscriptions: HASH_TABLE [attached like subscription_anchor, INTEGER]

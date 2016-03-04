@@ -10,4 +10,7 @@ note
 deferred class
 	PS_MODEL_CONTROLLER
 
+inherit
+	PS_ANY
+	
 end

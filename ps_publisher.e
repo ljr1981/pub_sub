@@ -15,6 +15,9 @@ note
 class
 	PS_PUBLISHER [G -> detachable ANY]
 
+inherit
+	PS_ANY
+	
 feature -- Access
 
 	publications: HASH_TABLE [attached like publication_anchor, INTEGER]
