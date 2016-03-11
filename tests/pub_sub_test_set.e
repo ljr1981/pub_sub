@@ -34,6 +34,7 @@ feature -- Tests: PS_PUBLISHER and PS_SUBSCRIBER
 			l_publication: PS_PUBLICATION [ANY]
 			l_sub: PS_SUBSCRIBER [ANY]
 			l_subscription: PS_SUBSCRIPTION [ANY]
+			l_pub_sub: PS_PUBLISHER_SUBSCRIBER [ANY]
 		do
 				-- Set up Publisher and Publications
 			create l_pub
