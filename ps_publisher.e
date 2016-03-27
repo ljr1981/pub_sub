@@ -17,13 +17,13 @@ class
 
 inherit
 	PS_ANY
-	
+
 feature -- Access
 
 	publications: HASH_TABLE [attached like publication_anchor, INTEGER]
 			-- `publications' of Current {PS_PUBLISHER}.
 		attribute
-			create Result.make (10)
+			create Result.make (Default_publications_starting_capacity)
 		end
 
 feature -- Subscribe
@@ -129,5 +129,10 @@ feature -- Settings
 feature {NONE} -- Implementation: Anchors
 
 	publication_anchor: detachable PS_PUBLICATION [G]
+
+feature {NONE} -- Implementation: Constants
+
+	Default_publications_starting_capacity: INTEGER = 10
+			-- When initializing `publications', what is the `Default_publications_starting_capacity'?
 
 end
