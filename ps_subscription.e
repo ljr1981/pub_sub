@@ -22,7 +22,7 @@ class
 
 inherit
 	PS_ANY
-	
+
 feature -- Access
 
 	subscription_agent: detachable PROCEDURE [ANY, TUPLE [like data_type_anchor]]
@@ -37,12 +37,16 @@ feature -- Access
 				Result := (create {RANDOMIZER}).uuid
 				uuid_internal := Result
 			end
+		ensure
+			uuid_internal /= Void
 		end
 
 feature -- Settings
 
 	set_subscription_agent (a_agent: attached like subscription_agent)
 			-- Set `subscription_agent' with `a_agent'.
+		require
+			a_agent /= Void
 		do
 			subscription_agent := a_agent
 		ensure
